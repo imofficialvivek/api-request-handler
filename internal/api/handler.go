@@ -20,10 +20,12 @@ func (h *Handler) FinancialsHandler(fetchData func(string) interface{}) http.Han
 	return h.apiHandler("financials", fetchData)
 }
 
+// SalesDataHandler handles the sales data API
 func (h *Handler) SalesDataHandler(fetchData func(string) interface{}) http.HandlerFunc {
 	return h.apiHandler("sales", fetchData)
 }
 
+// EmployeeStatsHandler handles the employee stats API
 func (h *Handler) EmployeeStatsHandler(fetchData func(string) interface{}) http.HandlerFunc {
 	return h.apiHandler("employee", fetchData)
 }
@@ -36,9 +38,14 @@ func (h *Handler) apiHandler(api string, fetchData func(string) interface{}) htt
 			return
 		}
 
-		// Fetch financial data
-		data := fetchData(companyID)
+		// Fetch or compute the data
+		data, err := h.cache.GetOrCompute(companyID+"-"+api, fetchData)
+		if err != nil {
+			http.Error(w, "Error fetching data", http.StatusInternalServerError)
+			return
+		}
 
+		// Respond with the computed/cached data in JSON format
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(struct {
 			CompanyID string      `json:"companyId"`
