@@ -24,6 +24,10 @@ func (h *Handler) SalesDataHandler(fetchData func(string) interface{}) http.Hand
 	return h.apiHandler("sales", fetchData)
 }
 
+func (h *Handler) EmployeeStatsHandler(fetchData func(string) interface{}) http.HandlerFunc {
+	return h.apiHandler("employee", fetchData)
+}
+
 func (h *Handler) apiHandler(api string, fetchData func(string) interface{}) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		companyID := r.URL.Query().Get("companyId")

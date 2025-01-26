@@ -13,3 +13,10 @@ func DummySalesData(companyID string) interface{} {
 		"returns":    200,
 	}
 }
+
+func DummyEmployeeStats(companyID string) interface{} {
+	return map[string]interface{}{
+		"employee_count": 1500,
+		"turnover_rate":  "25%",
+	}
+}
