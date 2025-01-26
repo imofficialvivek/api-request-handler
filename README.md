@@ -10,7 +10,17 @@
 cd api-request-handler
 git checkout develop
 ```
-3. Execute the below command to run the program
+3. Execute below command to run the program
 ```bash
-go run .\main.go
+go run main.go
+```
+4. Run below command in another terminal
+```bash
+curl "http://localhost:8080/api/company/financials?companyId=123"
+```
+
+## Run test (Optional)
+1. Execute below command to run the specific test 
+```bash
+go test -v test\handler_test.go
 ```
