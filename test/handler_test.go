@@ -13,7 +13,7 @@ import (
 func TestHandler(t *testing.T) {
 	handler := api.NewHandler()
 
-	req := httptest.NewRequest("GET", "/api/financials?companyId=test", nil)
+	req := httptest.NewRequest("GET", "/api/company/financials?companyId=test", nil)
 	w := httptest.NewRecorder()
 
 	handler.FinancialsHandler(services.DummyFinancialData)(w, req)
