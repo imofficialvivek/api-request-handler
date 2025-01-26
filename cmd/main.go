@@ -19,9 +19,9 @@ func main() {
 	handler := api.NewHandler(c)
 
 	// Define routes
-	http.HandleFunc("/api/company/financials", handler.FinancialsHandler(services.DummyFinancialData))
-	http.HandleFunc("/api/sales/data", handler.SalesDataHandler(services.DummySalesData))
-	http.HandleFunc("/api/employee/stats", handler.EmployeeStatsHandler(services.DummyEmployeeStats))
+	http.HandleFunc("/api/company/financials", handler.FinancialsHandler(services.InitialData))
+	http.HandleFunc("/api/sales/data", handler.SalesDataHandler(services.InitialData))
+	http.HandleFunc("/api/employee/stats", handler.EmployeeStatsHandler(services.InitialData))
 
 	// Start the server
 	fmt.Println("Server is running on port 8080")

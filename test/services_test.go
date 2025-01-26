@@ -6,16 +6,27 @@ import (
 	services "api-request-handler/internal/services"
 )
 
-func TestDummyServices(t *testing.T) {
-	if data := services.DummyFinancialData("id"); data == nil {
-		t.Error("DummyFinancialData returned nil")
+func TestInitialData(t *testing.T) {
+	data := services.InitialData("id")
+	if data == nil {
+		t.Error("Initial data returned nil")
 	}
 
-	if data := services.DummySalesData("id"); data == nil {
-		t.Error("DummySalesData returned nil")
+	// Additional checks for specific fields
+	expectedCompany := "Kelp"
+	expectedLocation := "Andheri"
+
+	dataMap, ok := data.(map[string]interface{})
+	if !ok {
+		t.Error("Initial data did not return a map[string]interface{}")
+		return
 	}
 
-	if data := services.DummyEmployeeStats("id"); data == nil {
-		t.Error("DummyEmployeeStats returned nil")
+	if company, found := dataMap["company"]; !found || company != expectedCompany {
+		t.Errorf("Expected company: %v, got: %v", expectedCompany, company)
+	}
+
+	if location, found := dataMap["location"]; !found || location != expectedLocation {
+		t.Errorf("Expected location: %v, got: %v", expectedLocation, location)
 	}
 }
