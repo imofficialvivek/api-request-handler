@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 func main() {
 	fmt.Println("------Starting API request handler------")
+
+	// Start the server
+	fmt.Println("Server is running on port 8080..")
+	http.ListenAndServe(":8080", nil)
 }
