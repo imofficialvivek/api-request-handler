@@ -14,4 +14,8 @@ func TestDummyServices(t *testing.T) {
 	if data := services.DummySalesData("id"); data == nil {
 		t.Error("DummySalesData returned nil")
 	}
+
+	if data := services.DummyEmployeeStats("id"); data == nil {
+		t.Error("DummyEmployeeStats returned nil")
+	}
 }
