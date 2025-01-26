@@ -1,19 +1,26 @@
 package api
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
+
+	cache "api-request-handler/internal/cache"
 )
 
-type Handler struct{}
+type Handler struct {
+	cache *cache.ConcurrentCache
+}
 
-// Create a new handler instance
-func NewHandler() *Handler {
-	return &Handler{}
+func NewHandler(c *cache.ConcurrentCache) *Handler {
+	return &Handler{cache: c}
 }
 
 // FinancialsHandler handles the financial data API
 func (h *Handler) FinancialsHandler(fetchData func(string) interface{}) http.HandlerFunc {
+	return h.apiHandler("financials", fetchData)
+}
+
+func (h *Handler) apiHandler(api string, fetchData func(string) interface{}) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		companyID := r.URL.Query().Get("companyId")
 		if companyID == "" {
@@ -24,8 +31,15 @@ func (h *Handler) FinancialsHandler(fetchData func(string) interface{}) http.Han
 		// Fetch financial data
 		data := fetchData(companyID)
 
-		// Return the financial data as response
-		w.Header().Set("Content-Type", "text/plain")
-		fmt.Fprintf(w, "%v", data)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(struct {
+			CompanyID string      `json:"companyId"`
+			API       string      `json:"api"`
+			Data      interface{} `json:"data"`
+		}{
+			CompanyID: companyID,
+			API:       api,
+			Data:      data,
+		})
 	}
 }

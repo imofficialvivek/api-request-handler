@@ -7,11 +7,13 @@ import (
 	"testing"
 
 	api "api-request-handler/internal/api"
+	cache "api-request-handler/internal/cache"
 	services "api-request-handler/internal/services"
 )
 
 func TestHandler(t *testing.T) {
-	handler := api.NewHandler()
+	c := cache.NewConcurrentCache()
+	handler := api.NewHandler(c)
 
 	req := httptest.NewRequest("GET", "/api/company/financials?companyId=test", nil)
 	w := httptest.NewRecorder()
