@@ -10,6 +10,8 @@ import (
 )
 
 func main() {
+	fmt.Println("------Starting API Request Handler------")
+
 	// Initialize cache
 	c := cache.NewConcurrentCache()
 
