@@ -12,9 +12,9 @@
 cd api-request-handler
 git checkout develop
 ```
-3. Execute below command to run the program
+3. Execute below command in windows to run the program
 ```bash
-go run main.go
+go run cmd\main.go
 ```
 4. Run below command in another terminal
 ```bash
@@ -40,3 +40,6 @@ go test -v test\cache_test.go
 go test -v test\handler_test.go
 go test -v test\services_test.go
 ```
+
+
+```Note:``` For more information, refer to documentation ```API-Request-Handler.pdf``` available in doc folder.
