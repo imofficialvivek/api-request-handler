@@ -39,7 +39,7 @@ func (h *Handler) apiHandler(api string, fetchData func(string) interface{}) htt
 		}
 
 		// Fetch or compute the data
-		data, err := h.cache.GetOrCompute(companyID+"-"+api, fetchData)
+		data, err := h.cache.GetOrCompute(companyID, fetchData)
 		if err != nil {
 			http.Error(w, "Error fetching data", http.StatusInternalServerError)
 			return
